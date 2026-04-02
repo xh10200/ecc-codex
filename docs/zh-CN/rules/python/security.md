@@ -28,4 +28,4 @@ api_key = os.environ["OPENAI_API_KEY"]  # Raises KeyError if missing
 
 ## 参考
 
-查看技能：`django-security` 以获取 Django 特定的安全指南（如适用）。
+查看技能：`security-review` 以获取通用安全检查清单；如果项目涉及 Web 接口，再结合具体框架的官方安全文档使用。

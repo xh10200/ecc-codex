@@ -1,0 +1,7 @@
+interface:
+  display_name: "Python Patterns"
+  short_description: "Pythonic idioms, typing, structure, and best practices"
+  brand_color: "#3776AB"
+  default_prompt: "Apply Pythonic patterns, typing, and maintainable Python structure"
+policy:
+  allow_implicit_invocation: true

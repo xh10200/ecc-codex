@@ -15,6 +15,7 @@ rules/
 │   ├── hooks.md
 │   ├── agents.md
 │   └── security.md
+├── csharp/          # C# 固有
 ├── typescript/      # TypeScript/JavaScript 固有
 ├── python/          # Python 固有
 └── golang/          # Go 固有
@@ -29,6 +30,7 @@ rules/
 
 ```bash
 # common + 1つ以上の言語固有ルールセットをインストール
+./install.sh csharp
 ./install.sh typescript
 ./install.sh python
 ./install.sh golang
@@ -45,13 +47,14 @@ rules/
 > 言語固有ファイルが使用する相対パス `../common/` の参照が壊れます。
 
 ```bash
-# common ルールをインストール（すべてのプロジェクトに必須）
-cp -r rules/common ~/.claude/rules/common
+# common ルールを参照（すべてのプロジェクトに必須）
+cp -r rules/common /path/to/your/runtime/rules/common
 
 # プロジェクトの技術スタックに応じて言語固有ルールをインストール
-cp -r rules/typescript ~/.claude/rules/typescript
-cp -r rules/python ~/.claude/rules/python
-cp -r rules/golang ~/.claude/rules/golang
+cp -r rules/csharp /path/to/your/runtime/rules/csharp
+cp -r rules/golang /path/to/your/runtime/rules/golang
+cp -r rules/python /path/to/your/runtime/rules/python
+cp -r rules/typescript /path/to/your/runtime/rules/typescript
 
 # 注意！実際のプロジェクト要件に応じて設定してください。ここでの設定は参考例です。
 ```

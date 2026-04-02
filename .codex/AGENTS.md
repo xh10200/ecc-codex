@@ -18,29 +18,22 @@ Skills are auto-loaded from `.agents/skills/`. Each skill contains:
 - `agents/openai.yaml` — Codex interface metadata
 
 Available skills:
-- tdd-workflow — Test-driven development with 80%+ coverage
-- security-review — Comprehensive security checklist
+- api-design — REST API design patterns
+- bun-runtime — Bun runtime and package-manager workflow
 - coding-standards — Universal coding standards
-- frontend-patterns — React/Next.js patterns
-- frontend-slides — Viewport-safe HTML presentations and PPTX-to-web conversion
-- article-writing — Long-form writing from notes and voice references
-- content-engine — Platform-native social content and repurposing
-- market-research — Source-attributed market and competitor research
-- investor-materials — Decks, memos, models, and one-pagers
-- investor-outreach — Personalized investor outreach and follow-ups
-- backend-patterns — API design, database, caching
+- documentation-lookup — Live docs via Context7
 - e2e-testing — Playwright E2E tests
 - eval-harness — Eval-driven development
-- strategic-compact — Context management
-- api-design — REST API design patterns
+- frontend-patterns — React/Next.js frontend patterns
+- golang-patterns — Idiomatic Go development patterns
+- golang-testing — Go testing and TDD patterns
+- mcp-server-patterns — MCP server design and implementation
+- nextjs-turbopack — Next.js and Turbopack workflow
+- python-patterns — Idiomatic Python development patterns
+- python-testing — Python testing and pytest patterns
+- security-review — Comprehensive security checklist
+- tdd-workflow — Test-driven development with 80%+ coverage
 - verification-loop — Build, test, lint, typecheck, security
-- deep-research — Multi-source research with firecrawl and exa MCPs
-- exa-search — Neural search via Exa MCP for web, code, and companies
-- claude-api — Anthropic Claude API patterns and SDKs
-- x-api — X/Twitter API integration for posting, threads, and analytics
-- crosspost — Multi-platform content distribution
-- fal-ai-media — AI image/video/audio generation via fal.ai
-- dmux-workflows — Multi-agent orchestration with dmux
 
 ## MCP Servers
 
@@ -69,10 +62,16 @@ Codex now supports multi-agent workflows behind the experimental `features.multi
 - Point each role at a TOML layer under `.codex/agents/`
 - Use `/agent` inside Codex CLI to inspect and steer child agents
 
-Sample role configs in this repo:
-- `.codex/agents/explorer.toml` — read-only evidence gathering
-- `.codex/agents/reviewer.toml` — correctness/security review
-- `.codex/agents/docs-researcher.toml` — API and release-note verification
+Core role configs in this repo include:
+- `.codex/agents/planner.toml` — implementation planning
+- `.codex/agents/architect.toml` — architecture analysis
+- `.codex/agents/code-reviewer.toml` — correctness and maintainability review
+- `.codex/agents/security-reviewer.toml` — security review
+- `.codex/agents/go-reviewer.toml` — Go review
+- `.codex/agents/python-reviewer.toml` — Python review
+- `.codex/agents/typescript-reviewer.toml` — TypeScript review
+- `.codex/agents/database-reviewer.toml` — database review
+- `.codex/agents/gan-planner.toml`, `.codex/agents/gan-generator.toml`, `.codex/agents/gan-evaluator.toml` — rapid frontend prototype loop
 
 ## Key Differences from Claude Code
 

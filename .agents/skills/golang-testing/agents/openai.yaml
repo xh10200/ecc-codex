@@ -1,0 +1,7 @@
+interface:
+  display_name: "Go Testing"
+  short_description: "Table-driven tests, benchmarks, fuzzing, and Go TDD"
+  brand_color: "#007D9C"
+  default_prompt: "Use idiomatic Go testing patterns, table-driven tests, and coverage-focused TDD"
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,7 @@
+interface:
+  display_name: "Go Patterns"
+  short_description: "Idiomatic Go development patterns and conventions"
+  brand_color: "#00ADD8"
+  default_prompt: "Apply idiomatic Go patterns, package structure, and best practices"
+policy:
+  allow_implicit_invocation: true

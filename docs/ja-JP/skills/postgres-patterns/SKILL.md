@@ -138,8 +138,8 @@ SELECT pg_reload_conf();
 ## 関連
 
 - Agent: `database-reviewer` - 完全なデータベースレビューワークフロー
-- Skill: `clickhouse-io` - ClickHouse分析パターン
-- Skill: `backend-patterns` - APIとバックエンドパターン
+- Skill: `database-migrations` - データベース移行と変更管理
+- Skill: `api-design` - API とデータアクセス境界の設計
 
 ---
 

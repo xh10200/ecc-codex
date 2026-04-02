@@ -1,105 +1,57 @@
 # スキル
 
-スキルは Claude Code が文脈に基づいて読み込む知識モジュールです。ワークフロー定義とドメイン知識を含みます。
+スキルは Codex が文脈に応じて読み込む知識モジュールです。ローカルでの設計、実装、テスト、検証、レビューの閉ループを支えるために使います。
 
-## スキルカテゴリ
+## 現在の保留カテゴリ
 
-### 言語別パターン
-- `python-patterns/` - Python 設計パターン
+### 言語・実装パターン
+- `coding-standards/` - 共通のコーディング基準
+- `frontend-patterns/` - React / Next.js パターン
 - `golang-patterns/` - Go 設計パターン
-- `frontend-patterns/` - React/Next.js パターン
-- `backend-patterns/` - API とデータベースパターン
+- `python-patterns/` - Python 設計パターン
+- `bun-runtime/` - Bun ランタイム運用
+- `nextjs-turbopack/` - Next.js / Turbopack 運用
 
-### 言語別テスト
-- `python-testing/` - Python テスト戦略
-- `golang-testing/` - Go テスト戦略
-- `cpp-testing/` - C++ テスト
-
-### フレームワーク
-- `django-patterns/` - Django ベストプラクティス
-- `django-tdd/` - Django テスト駆動開発
-- `django-security/` - Django セキュリティ
-- `springboot-patterns/` - Spring Boot パターン
-- `springboot-tdd/` - Spring Boot テスト
-- `springboot-security/` - Spring Boot セキュリティ
-
-### データベース
-- `postgres-patterns/` - PostgreSQL パターン
-- `jpa-patterns/` - JPA/Hibernate パターン
-
-### セキュリティ
-- `security-review/` - セキュリティチェックリスト
-- `security-scan/` - セキュリティスキャン
-
-### ワークフロー
-- `tdd-workflow/` - テスト駆動開発ワークフロー
-- `continuous-learning/` - 継続的学習
-
-### ドメイン特定
+### テスト・検証
+- `e2e-testing/` - E2E テスト
 - `eval-harness/` - 評価ハーネス
-- `iterative-retrieval/` - 反復的検索
+- `golang-testing/` - Go テスト戦略
+- `python-testing/` - Python テスト戦略
+- `tdd-workflow/` - テスト駆動開発ワークフロー
+- `verification-loop/` - 検証ループ
+
+### API・セキュリティ・ドキュメント
+- `api-design/` - API 設計
+- `documentation-lookup/` - ドキュメント参照
+- `security-review/` - セキュリティレビュー
+- `mcp-server-patterns/` - MCP サーバーパターン
+
+### データベース・ワークフロー補助
+- `postgres-patterns/` - PostgreSQL パターン
+- `continuous-learning-v2/` - 継続改善ワークフロー
 
 ## スキル構造
 
-各スキルは自分のディレクトリに SKILL.md ファイルを含みます：
+各スキルは専用ディレクトリに `SKILL.md` を持ちます。
 
-```
+```text
 skills/
-├── python-patterns/
-│   └── SKILL.md          # 実装パターン、例、ベストプラクティス
-├── golang-testing/
+├── coding-standards/
 │   └── SKILL.md
-├── django-patterns/
+├── golang-patterns/
+│   └── SKILL.md
+├── python-testing/
 │   └── SKILL.md
 ...
 ```
 
-## スキルを使用します
+## スキルの使い方
 
-Claude Code はコンテキストに基づいてスキルを自動的に読み込みます。例：
+Codex はタスク内容に応じて関連するスキルを読み込みます。例：
 
-- Python ファイルを編集している場合 → `python-patterns` と `python-testing` が読み込まれる
-- Django プロジェクトの場合 → `django-*` スキルが読み込まれる
-- テスト駆動開発をしている場合 → `tdd-workflow` が読み込まれる
+- Go の実装やレビュー → `golang-patterns` と `golang-testing`
+- Python の変更 → `python-patterns` と `python-testing`
+- API 設計やエンドポイント整理 → `api-design`
+- テスト主導で進める変更 → `tdd-workflow`
 
-## スキルの作成
-
-新しいスキルを作成するには：
-
-1. `skills/your-skill-name/` ディレクトリを作成
-2. `SKILL.md` ファイルを追加
-3. テンプレート：
-
-```markdown
----
-name: your-skill-name
-description: Brief description shown in skill list
----
-
-# Your Skill Title
-
-Brief overview.
-
-## Core Concepts
-
-Key patterns and guidelines.
-
-## Code Examples
-
-\`\`\`language
-// Practical, tested examples
-\`\`\`
-
-## Best Practices
-
-- Actionable guideline 1
-- Actionable guideline 2
-
-## When to Use
-
-Describe scenarios where this skill applies.
-```
-
----
-
-**覚えておいてください**：スキルは参照資料です。実装ガイダンスを提供し、ベストプラクティスを示します。スキルとルールを一緒に使用して、高品質なコードを確認してください。
+**覚えておいてください**：スキルは実装を助ける実務資料です。ルールと組み合わせて使うことで、一貫した品質を保てます。

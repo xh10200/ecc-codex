@@ -4,6 +4,8 @@
 
 基于原开源项目 `everything-claude-code` 整理和裁剪而成，当前定位为个人 Codex 规范与加载基座。
 
+当前范围聚焦于本机 AI 辅助设计、开发、测试与验证闭环，优先服务 `Go`、`Python`、`C#`、`TypeScript` 以及数据库与前端原型工作流。
+
 目标很简单：
 - 用根目录入口文件定义默认行为
 - 用 `agents/`、`rules/`、`skills/` 维护核心规范资产

@@ -146,8 +146,8 @@ SELECT pg_reload_conf();
 ## 相关
 
 * 智能体：`database-reviewer` - 完整的数据库审查工作流
-* 技能：`clickhouse-io` - ClickHouse 分析模式
-* 技能：`backend-patterns` - API 和后端模式
+* 技能：`database-migrations` - 数据库迁移与变更管理
+* 技能：`api-design` - API 与数据访问边界设计
 
 ***
 

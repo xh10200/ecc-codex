@@ -15,11 +15,10 @@ rules/
 │   ├── hooks.md
 │   ├── agents.md
 │   └── security.md
+├── csharp/          # C# 特定
 ├── typescript/      # TypeScript/JavaScript 特定
 ├── python/          # Python 特定
-├── golang/          # Go 特定
-├── swift/           # Swift 特定
-└── php/             # PHP 特定
+└── golang/          # Go 特定
 ```
 
 * **common/** 包含通用原则 —— 没有语言特定的代码示例。
@@ -31,11 +30,10 @@ rules/
 
 ```bash
 # Install common + one or more language-specific rule sets
+./install.sh csharp
 ./install.sh typescript
 ./install.sh python
 ./install.sh golang
-./install.sh swift
-./install.sh php
 
 # Install multiple languages at once
 ./install.sh typescript python
@@ -49,14 +47,13 @@ rules/
 
 ```bash
 # Install common rules (required for all projects)
-cp -r rules/common ~/.claude/rules/common
+cp -r rules/common /path/to/your/runtime/rules/common
 
 # Install language-specific rules based on your project's tech stack
-cp -r rules/typescript ~/.claude/rules/typescript
-cp -r rules/python ~/.claude/rules/python
-cp -r rules/golang ~/.claude/rules/golang
-cp -r rules/swift ~/.claude/rules/swift
-cp -r rules/php ~/.claude/rules/php
+cp -r rules/csharp /path/to/your/runtime/rules/csharp
+cp -r rules/typescript /path/to/your/runtime/rules/typescript
+cp -r rules/python /path/to/your/runtime/rules/python
+cp -r rules/golang /path/to/your/runtime/rules/golang
 
 # Attention ! ! ! Configure according to your actual project requirements; the configuration here is for reference only.
 ```
@@ -90,7 +87,7 @@ cp -r rules/php ~/.claude/rules/php
 当语言特定规则与通用规则冲突时，**语言特定规则优先**（具体规则覆盖通用规则）。这遵循标准的分层配置模式（类似于 CSS 特异性或 `.gitignore` 优先级）。
 
 * `rules/common/` 定义了适用于所有项目的通用默认值。
-* `rules/golang/`、`rules/python/`、`rules/swift/`、`rules/php/`、`rules/typescript/` 等会在语言习惯不同时覆盖这些默认值。
+* `rules/csharp/`、`rules/golang/`、`rules/python/`、`rules/typescript/` 等会在语言习惯不同时覆盖这些默认值。
 
 ### 示例
 

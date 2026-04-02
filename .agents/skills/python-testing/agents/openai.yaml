@@ -1,0 +1,7 @@
+interface:
+  display_name: "Python Testing"
+  short_description: "Pytest, fixtures, mocking, parametrization, and TDD"
+  brand_color: "#FFD43B"
+  default_prompt: "Use pytest-based TDD, fixtures, mocks, and coverage-oriented Python testing"
+policy:
+  allow_implicit_invocation: true
