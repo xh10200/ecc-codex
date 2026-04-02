@@ -14,14 +14,11 @@
 | build-error-resolver | 修复构建错误 | 构建失败时 |
 | e2e-runner | 端到端测试 | 关键用户流程 |
 | refactor-cleaner | 清理死代码 | 代码维护 |
-| docs-lookup | 文档检索 | API 或框架文档查询 |
 | go-reviewer | Go 代码审查 | Go 项目 |
 | go-build-resolver | Go 构建错误修复 | Go 构建失败 |
 | database-reviewer | 数据库审查 | 模式设计、SQL、迁移 |
 | python-reviewer | Python 代码审查 | Python 项目 |
 | typescript-reviewer | TypeScript 代码审查 | TypeScript / JavaScript 项目 |
-| loop-operator | 闭环执行监控 | 自动循环与防卡死 |
-| harness-optimizer | Harness 调优 | 可靠性、成本、吞吐 |
 | gan-planner | 前端原型规划 | GAN 原型方案拆解 |
 | gan-generator | 前端原型生成 | 快速生成原型 |
 | gan-evaluator | 前端原型评估 | 评审生成结果 |

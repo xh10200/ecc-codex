@@ -14,14 +14,11 @@ Defined in project-local `.codex/config.toml` and `.codex/agents/`:
 | build-error-resolver | Fix build errors | When build fails |
 | e2e-runner | E2E testing | Critical user flows |
 | refactor-cleaner | Dead code cleanup | Code maintenance |
-| docs-lookup | Documentation lookup | API and framework questions |
 | go-reviewer | Go code review | Go projects |
 | go-build-resolver | Go build errors | Go build failures |
 | database-reviewer | Database review | Schema design, SQL, migrations |
 | python-reviewer | Python code review | Python projects |
 | typescript-reviewer | TypeScript/JavaScript review | TypeScript/JavaScript projects |
-| loop-operator | Autonomous loop operations | Long-running local workflows |
-| harness-optimizer | Harness tuning | Reliability, cost, throughput |
 | gan-planner | Prototype planning | Frontend prototype planning |
 | gan-generator | Prototype generation | Frontend prototype implementation |
 | gan-evaluator | Prototype evaluation | Prototype scoring and feedback |

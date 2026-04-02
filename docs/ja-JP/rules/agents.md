@@ -14,14 +14,11 @@
 | build-error-resolver | ビルドエラー修正 | ビルド失敗時 |
 | e2e-runner | E2Eテスト | 重要なユーザーフロー |
 | refactor-cleaner | デッドコードクリーンアップ | コードメンテナンス |
-| docs-lookup | ドキュメント参照 | API やフレームワーク確認 |
 | go-reviewer | Go コードレビュー | Go プロジェクト |
 | go-build-resolver | Go ビルドエラー修正 | Go ビルド失敗時 |
 | database-reviewer | データベースレビュー | スキーマ設計、SQL、移行 |
 | python-reviewer | Python コードレビュー | Python プロジェクト |
 | typescript-reviewer | TypeScript コードレビュー | TypeScript / JavaScript プロジェクト |
-| loop-operator | ループ監視 | 自動ループ実行の監視 |
-| harness-optimizer | Harness 最適化 | 信頼性、コスト、スループット |
 | gan-planner | フロントエンド原型計画 | GAN 原型の設計 |
 | gan-generator | フロントエンド原型生成 | 原型の高速生成 |
 | gan-evaluator | フロントエンド原型評価 | 生成結果のレビュー |

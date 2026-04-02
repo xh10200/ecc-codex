@@ -70,8 +70,8 @@ Use agents proactively without user prompt:
 - Bug fix or new feature → **tdd-guide**
 - Architectural decision → **architect**
 - Security-sensitive code → **security-reviewer**
-- Autonomous loops / loop monitoring → **loop-operator**
-- Harness config reliability and cost → **harness-optimizer**
+- Database schema or SQL changes → **database-reviewer**
+- Critical local user flows → **e2e-runner**
 
 Use parallel execution for independent operations — launch multiple agents simultaneously.
 
