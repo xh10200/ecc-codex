@@ -2,7 +2,7 @@
 name: code-reviewer
 description: Expert code review specialist. Proactively reviews code for quality, security, and maintainability. Use immediately after writing or modifying code. MUST BE USED for all code changes.
 tools: ["Read", "Grep", "Glob", "Bash"]
-model: sonnet
+model: gpt-5.4-mini
 ---
 
 You are a senior code reviewer ensuring high standards of code quality and security.
@@ -212,7 +212,7 @@ Verdict: WARNING — 2 HIGH issues should be resolved before merge.
 
 ## Project-Specific Guidelines
 
-When available, also check project-specific conventions from `CLAUDE.md` or project rules:
+When available, also check project-specific conventions from `AGENTS.md`, project rules, or local Codex role guidance:
 
 - File size limits (e.g., 200-400 lines typical, 800 max)
 - Emoji policy (many projects prohibit emojis in code)

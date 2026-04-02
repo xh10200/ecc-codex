@@ -1,12 +1,12 @@
 ---
 name: verification-loop
-description: "Claude Code 会话的全面验证系统。"
+description: "Codex 会话的全面验证系统。"
 origin: ECC
 ---
 
 # 验证循环技能
 
-一个全面的 Claude Code 会话验证系统。
+一个全面的 Codex 会话验证系统。
 
 ## 何时使用
 
@@ -126,11 +126,11 @@ git diff HEAD~1 --name-only
 - 完成一个组件后
 - 在移动到下一个任务之前
 
-运行: /verify
+运行这一轮适用的构建、测试和审查命令
 
 ```
 
 ## 与钩子的集成
 
-此技能补充 PostToolUse 钩子，但提供更深入的验证。
-钩子会立即捕获问题；此技能提供全面的审查。
+此技能补充仓库内的轻量自动化检查，但提供更深入的验证。
+自动化会即时暴露明显问题；此技能负责完整审查。

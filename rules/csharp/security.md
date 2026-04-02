@@ -20,8 +20,8 @@ paths:
 const string ApiKey = "sk-live-123";
 
 // GOOD
-var apiKey = builder.Configuration["OpenAI:ApiKey"]
-    ?? throw new InvalidOperationException("OpenAI:ApiKey is not configured.");
+var signingKey = builder.Configuration["App:SigningKey"]
+    ?? throw new InvalidOperationException("App:SigningKey is not configured.");
 ```
 
 ## SQL Injection Prevention

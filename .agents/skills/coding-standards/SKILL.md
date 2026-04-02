@@ -367,12 +367,12 @@ name = user.name
 
 ```typescript
 /**
- * Searches markets using semantic similarity.
+ * Searches markets using keyword and metadata filters.
  *
  * @param query - Natural language search query
  * @param limit - Maximum number of results (default: 10)
  * @returns Array of markets sorted by similarity score
- * @throws {Error} If OpenAI API fails or Redis unavailable
+ * @throws {Error} If the local search index is unavailable
  *
  * @example
  * ```typescript
@@ -427,15 +427,12 @@ export function Dashboard() {
 
 ```typescript
 // PASS: GOOD: Select only needed columns
-const { data } = await supabase
-  .from('markets')
-  .select('id, name, status')
-  .limit(10)
+const rows = await db.query(
+  'SELECT id, name, status FROM markets ORDER BY created_at DESC LIMIT 10'
+)
 
 // FAIL: BAD: Select everything
-const { data } = await supabase
-  .from('markets')
-  .select('*')
+const rows = await db.query('SELECT * FROM markets')
 ```
 
 ## Testing Standards
@@ -461,8 +458,8 @@ test('calculates similarity correctly', () => {
 ```typescript
 // PASS: GOOD: Descriptive test names
 test('returns empty array when no markets match query', () => { })
-test('throws error when OpenAI API key is missing', () => { })
-test('falls back to substring search when Redis unavailable', () => { })
+test('throws error when the local search index is unavailable', () => { })
+test('falls back to exact match search when the cache layer is unavailable', () => { })
 
 // FAIL: BAD: Vague test names
 test('works', () => { })

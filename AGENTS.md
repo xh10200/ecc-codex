@@ -1,4 +1,4 @@
-# Everything Claude Code (ECC) — Agent Instructions
+# ECC for Codex — Agent Instructions
 
 This repository is a lightweight **personal Codex guidance base** for agent instructions, reusable skills, rules, and domain docs.
 
@@ -20,7 +20,7 @@ Priority and interpretation:
 - Codex-specific local configuration in `.codex/` and `.agents/` should be preferred over generic repository guidance when both are applicable and do not conflict with higher-level instructions.
 - `RULES.md` defines concise hard rules and should be treated as stricter than advisory guidance elsewhere in the repo.
 - `SOUL.md` defines persona and operating philosophy, not low-level task procedure.
-- `CLAUDE.md` is a secondary compatibility/reference document and should only be consulted when it is specifically useful.
+- There is no secondary compatibility layer in this repo; `AGENTS.md` is the single repository entry point.
 
 Task routing defaults:
 - For implementation work, first check whether `.codex/` or `.agents/` already define Codex-specific guidance for the task.
@@ -53,13 +53,10 @@ Response defaults:
 | build-error-resolver | Fix build/type errors | When build fails |
 | e2e-runner | End-to-end Playwright testing | Critical user flows |
 | refactor-cleaner | Dead code cleanup | Code maintenance |
-| docs-lookup | Documentation lookup via Context7 | API/docs questions |
 | go-reviewer | Go code review | Go projects |
 | go-build-resolver | Go build errors | Go build failures |
-| database-reviewer | PostgreSQL/Supabase specialist | Schema design, query optimization |
+| database-reviewer | PostgreSQL specialist | Schema design, query optimization |
 | python-reviewer | Python code review | Python projects |
-| loop-operator | Autonomous loop execution | Run loops safely, monitor stalls, intervene |
-| harness-optimizer | Harness config tuning | Reliability, cost, throughput |
 | typescript-reviewer | TypeScript/JavaScript code review | TypeScript/JavaScript projects |
 | gan-planner | Frontend prototype planning | Rapid GAN-style prototype specs |
 | gan-generator | Frontend prototype generation | Rapid GAN-style prototype implementation |
@@ -159,7 +156,7 @@ Troubleshoot failures: check test isolation → verify mocks → fix implementat
 
 **Repository pattern:** Encapsulate data access behind standard interface (findAll, findById, create, update, delete). Business logic depends on abstract interface, not storage mechanism.
 
-**Skeleton projects:** Search for battle-tested templates, evaluate with parallel agents (security, extensibility, relevance), clone best match, iterate within proven structure.
+**Skeleton projects:** Prefer proven local templates already present in the workspace or organization-maintained local starters. Avoid network-dependent discovery as a default workflow.
 
 ## Performance
 
@@ -173,7 +170,6 @@ Troubleshoot failures: check test isolation → verify mocks → fix implementat
 AGENTS.md        — repository entry point and execution guide
 RULES.md         — hard constraints and guardrails
 SOUL.md          — identity, tone, and operating philosophy
-CLAUDE.md        — secondary Claude-specific compatibility note
 agents/          — specialized subagent definitions
 skills/          — workflow skills and domain knowledge
 rules/           — always-follow guidelines and language/domain rules

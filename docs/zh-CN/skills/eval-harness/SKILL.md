@@ -7,12 +7,12 @@ tools: Read, Write, Edit, Bash, Grep, Glob
 
 # Eval Harness 技能
 
-一个用于 Claude Code 会话的正式评估框架，实现了评估驱动开发 (EDD) 原则。
+一个用于 Codex 会话的正式评估框架，实现了评估驱动开发 (EDD) 原则。
 
 ## 何时激活
 
 * 为 AI 辅助工作流程设置评估驱动开发 (EDD)
-* 定义 Claude Code 任务完成的标准（通过/失败）
+* 定义 Codex 任务完成的标准（通过/失败）
 * 使用 pass@k 指标衡量代理可靠性
 * 为提示或代理变更创建回归测试套件
 * 跨模型版本对代理性能进行基准测试
@@ -30,11 +30,11 @@ tools: Read, Write, Edit, Bash, Grep, Glob
 
 ### 能力评估
 
-测试 Claude 是否能完成之前无法完成的事情：
+测试 Codex 是否能完成之前无法完成的事情：
 
 ```markdown
 [能力评估：功能名称]
-任务：描述 Claude 应完成的工作
+任务：描述 Codex 应完成的工作
 成功标准：
   - [ ] 标准 1
   - [ ] 标准 2
@@ -77,7 +77,7 @@ npm run build && echo "PASS" || echo "FAIL"
 
 ### 2. 基于模型的评分器
 
-使用 Claude 来评估开放式输出：
+使用 Codex 或其他评审模型来评估开放式输出：
 
 ```markdown
 [MODEL GRADER PROMPT]
@@ -191,34 +191,22 @@ npm test -- --testPathPattern="existing"
 
 ### 实施前
 
-```
-/eval define feature-name
-```
-
-在 `.claude/evals/feature-name.md` 处创建评估定义文件
+在 `.codex/evals/feature-name.md` 中创建评估定义文件，写入能力检查、回归检查和成功指标。
 
 ### 实施过程中
 
-```
-/eval check feature-name
-```
-
-运行当前评估并报告状态
+重新运行评估定义里记录的构建、测试和场景检查，并在文件中更新状态。
 
 ### 实施后
 
-```
-/eval 报告 功能名称
-```
-
-生成完整的评估报告
+刷新 `.codex/evals/feature-name.log` 并在收尾说明里总结最新结果。
 
 ## 评估存储
 
 将评估存储在项目中：
 
 ```
-.claude/
+.codex/
   evals/
     feature-xyz.md      # Eval定义
     feature-xyz.log     # Eval运行历史
@@ -257,7 +245,7 @@ npm test -- --testPathPattern="existing"
 [编写代码]
 
 ### 第 3 阶段：评估
-运行：/eval check add-authentication
+运行记录在 `.codex/evals/add-authentication.md` 中的检查
 
 ### 第 4 阶段：报告
 评估报告：添加身份验证
@@ -299,6 +287,6 @@ npm test -- --testPathPattern="existing"
 
 ### 最小评估工件布局
 
-* `.claude/evals/<feature>.md` 定义
-* `.claude/evals/<feature>.log` 运行历史
+* `.codex/evals/<feature>.md` 定义
+* `.codex/evals/<feature>.log` 运行历史
 * `docs/releases/<version>/eval-summary.md` 发布快照

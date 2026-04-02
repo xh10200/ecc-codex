@@ -9,14 +9,13 @@ paths:
 
 > This file extends [common/hooks.md](../common/hooks.md) with TypeScript/JavaScript specific content.
 
-## PostToolUse Hooks
+## Recommended Post-Edit Verification
 
-Configure in `~/.claude/settings.json`:
+- **Prettier**: Format changed JS/TS files immediately after editing
+- **TypeScript check**: Run `tsc` for the owning config of changed `.ts`/`.tsx` files
+- **console.log warning**: Flag `console.log` in edited files unless it is intentionally temporary
 
-- **Prettier**: Auto-format JS/TS files after edit
-- **TypeScript check**: Run `tsc` after editing `.ts`/`.tsx` files
-- **console.log warning**: Warn about `console.log` in edited files
+## Before Finishing
 
-## Stop Hooks
-
-- **console.log audit**: Check all modified files for `console.log` before session ends
+- Run the nearest relevant test command for the changed code
+- Audit modified files for stray `console.log` or debug scaffolding

@@ -2,6 +2,10 @@
 
 This supplements the root `AGENTS.md` with Codex-specific guidance.
 
+The repository is intentionally local-only: no project workflow should depend
+on remote documentation lookup, remote connectors, hosted research tools, or
+subprocess patterns that require additional online model calls.
+
 ## Model Recommendations
 
 | Task Type | Recommended Model |
@@ -15,19 +19,16 @@ This supplements the root `AGENTS.md` with Codex-specific guidance.
 
 Skills are auto-loaded from `.agents/skills/`. Each skill contains:
 - `SKILL.md` — Detailed instructions and workflow
-- `agents/openai.yaml` — Codex interface metadata
 
 Available skills:
 - api-design — REST API design patterns
 - bun-runtime — Bun runtime and package-manager workflow
 - coding-standards — Universal coding standards
-- documentation-lookup — Live docs via Context7
 - e2e-testing — Playwright E2E tests
 - eval-harness — Eval-driven development
 - frontend-patterns — React/Next.js frontend patterns
 - golang-patterns — Idiomatic Go development patterns
 - golang-testing — Go testing and TDD patterns
-- mcp-server-patterns — MCP server design and implementation
 - nextjs-turbopack — Next.js and Turbopack workflow
 - python-patterns — Idiomatic Python development patterns
 - python-testing — Python testing and pytest patterns
@@ -35,23 +36,14 @@ Available skills:
 - tdd-workflow — Test-driven development with 80%+ coverage
 - verification-loop — Build, test, lint, typecheck, security
 
-## MCP Servers
+## Local-Only Runtime
 
-Treat the project-local `.codex/config.toml` as the default Codex baseline for ECC. The current ECC baseline enables GitHub, Context7, Exa, Memory, Playwright, and Sequential Thinking; add heavier extras in `~/.codex/config.toml` only when a task actually needs them.
+Treat the project-local `.codex/config.toml` as a local execution baseline:
 
-ECC's canonical Codex section name is `[mcp_servers.context7]`. The launcher package remains `@upstash/context7-mcp`; only the TOML section name is normalized for consistency with `codex mcp list` and the reference config.
-
-### Automatic config.toml merging
-
-The sync script (`scripts/sync-ecc-to-codex.sh`) uses a Node-based TOML parser to safely merge ECC MCP servers into `~/.codex/config.toml`:
-
-- **Add-only by default** — missing ECC servers are appended; existing servers are never modified or removed.
-- **7 managed servers** — Supabase, Playwright, Context7, Exa, GitHub, Memory, Sequential Thinking.
-- **Canonical naming** — ECC manages Context7 as `[mcp_servers.context7]`; legacy `[mcp_servers.context7-mcp]` entries are treated as aliases during updates.
-- **Package-manager aware** — uses the project's configured package manager (npm/pnpm/yarn/bun) instead of hardcoding `pnpm`.
-- **Drift warnings** — if an existing server's config differs from the ECC recommendation, the script logs a warning.
-- **`--update-mcp`** — explicitly replaces all ECC-managed servers with the latest recommended config (safely removes subtables like `[mcp_servers.supabase.env]`).
-- **User config is always preserved** — custom servers, args, env vars, and credentials outside ECC-managed sections are never touched.
+- no project-managed remote connectors
+- no remote documentation lookup
+- no repo-managed web search or discovery tooling
+- no subprocess workflows that require additional online model sessions
 
 ## Multi-Agent Support
 
@@ -73,17 +65,13 @@ Core role configs in this repo include:
 - `.codex/agents/database-reviewer.toml` — database review
 - `.codex/agents/gan-planner.toml`, `.codex/agents/gan-generator.toml`, `.codex/agents/gan-evaluator.toml` — rapid frontend prototype loop
 
-## Key Differences from Claude Code
+## Codex Runtime Notes
 
-| Feature | Claude Code | Codex CLI |
-|---------|------------|-----------|
-| Hooks | 8+ event types | Not yet supported |
-| Context file | CLAUDE.md + AGENTS.md | AGENTS.md only |
-| Skills | Skills loaded via plugin | `.agents/skills/` directory |
-| Commands | `/slash` commands | Instruction-based |
-| Agents | Subagent Task tool | Multi-agent via `/agent` and `[agents.<name>]` roles |
-| Security | Hook-based enforcement | Instruction + sandbox |
-| MCP | Full support | Supported via `config.toml` and `codex mcp add` |
+- `AGENTS.md` is the repository entry point.
+- Skills are surfaced from `.agents/skills/`.
+- Multi-agent roles are defined in `.codex/config.toml` and `.codex/agents/*.toml`.
+- External integrations are intentionally excluded from the project baseline.
+- Safety is enforced through instructions, sandboxing, approval policy, and explicit verification steps.
 
 ## Security Without Hooks
 

@@ -2,7 +2,7 @@
 name: tdd-guide
 description: Test-Driven Development specialist enforcing write-tests-first methodology. Use PROACTIVELY when writing new features, fixing bugs, or refactoring code. Ensures 80%+ test coverage.
 tools: ["Read", "Write", "Edit", "Bash", "Grep"]
-model: sonnet
+model: gpt-5.4-mini
 ---
 
 You are a Test-Driven Development (TDD) specialist who ensures all code is developed test-first with comprehensive coverage.
@@ -63,7 +63,7 @@ npm run test:coverage
 - Testing implementation details (internal state) instead of behavior
 - Tests depending on each other (shared state)
 - Asserting too little (passing tests that don't verify anything)
-- Not mocking external dependencies (Supabase, Redis, OpenAI, etc.)
+- Not mocking external dependencies (database clients, cache layers, local inference adapters, etc.)
 
 ## Quality Checklist
 

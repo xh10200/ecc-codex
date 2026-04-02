@@ -10,7 +10,7 @@ Testing patterns specifically designed for AI-assisted development, where the sa
 
 ## When to Activate
 
-- AI agent (Claude Code, Cursor, Codex) has modified API routes or backend logic
+- AI agent (Codex, Cursor, Codex) has modified API routes or backend logic
 - A bug was found and fixed — need to prevent re-introduction
 - Project has a sandbox/mock mode that can be leveraged for DB-free testing
 - Running `/bug-check` or similar review commands after code changes
@@ -197,7 +197,7 @@ describe("GET /api/user/messages (conversation list)", () => {
 ### Custom Command Definition
 
 ```markdown
-<!-- .claude/commands/bug-check.md -->
+<!-- .codex/commands/bug-check.md -->
 # Bug Check
 
 ## Step 1: Automated Tests (mandatory, cannot skip)
@@ -279,23 +279,21 @@ it("sandbox and production return same fields", async () => {
 
 ### Pattern 2: SELECT Clause Omission
 
-**Frequency**: Common with Supabase/Prisma when adding new columns
+**Frequency**: Common with database clients and ORMs when adding new columns
 
 ```typescript
 // FAIL: New column added to response but not to SELECT
-const { data } = await supabase
-  .from("users")
-  .select("id, email, name")  // notification_settings not here
-  .single();
+const data = await db.users.findFirst({
+  select: { id: true, email: true, name: true }
+}) // notification_settings not here
 
 return { data: { ...data, notification_settings: data.notification_settings } };
 // → notification_settings is always undefined
 
 // PASS: Use SELECT * or explicitly include new columns
-const { data } = await supabase
-  .from("users")
-  .select("*")
-  .single();
+const data = await db.users.findFirst({
+  select: { id: true, email: true, name: true, notification_settings: true }
+});
 ```
 
 ### Pattern 3: Error State Leakage

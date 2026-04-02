@@ -253,18 +253,13 @@ src/
 
 ## 外部サービスのモック
 
-### Supabaseモック
+### データベースクライアントモック
 ```typescript
-jest.mock('@/lib/supabase', () => ({
-  supabase: {
-    from: jest.fn(() => ({
-      select: jest.fn(() => ({
-        eq: jest.fn(() => Promise.resolve({
-          data: [{ id: 1, name: 'Test Market' }],
-          error: null
-        }))
-      }))
-    }))
+jest.mock('@/lib/db', () => ({
+  db: {
+    query: jest.fn(() => Promise.resolve([
+      { id: 1, name: 'Test Market' }
+    ]))
   }
 }))
 ```
@@ -279,10 +274,10 @@ jest.mock('@/lib/redis', () => ({
 }))
 ```
 
-### OpenAIモック
+### 埋め込みサービスモック
 ```typescript
-jest.mock('@/lib/openai', () => ({
-  generateEmbedding: jest.fn(() => Promise.resolve(
+jest.mock('@/lib/embeddings', () => ({
+  generateEmbeddingVector: jest.fn(() => Promise.resolve(
     new Array(1536).fill(0.1) // 1536次元埋め込みをモック
   ))
 }))

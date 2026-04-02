@@ -1,13 +1,7 @@
-#:schema https://developers.openai.com/codex/config-schema.json
-
-# Everything Claude Code (ECC) — Codex Reference Configuration
+# ECC — Codex Reference Configuration
 #
 # Copy this file to ~/.codex/config.toml for global defaults, or keep it in
 # the project root as .codex/config.toml for project-local settings.
-#
-# Official docs:
-# - https://developers.openai.com/codex/config-reference
-# - https://developers.openai.com/codex/multi-agent
 
 # Model selection
 # Leave `model` and `model_provider` unset so Codex CLI uses its current
@@ -17,7 +11,6 @@
 # Top-level runtime settings (current Codex schema)
 approval_policy = "on-request"
 sandbox_mode = "workspace-write"
-web_search = "live"
 
 # External notifications receive a JSON payload on stdin.
 notify = [
@@ -29,61 +22,11 @@ notify = [
 
 # Persistent instructions are appended to every prompt (additive, unlike
 # model_instructions_file which replaces AGENTS.md).
-persistent_instructions = "Follow project AGENTS.md guidelines. Use available MCP servers when they can help."
+persistent_instructions = "Follow project AGENTS.md guidelines. Keep all project workflows local-only and avoid external services, remote lookups, and network-dependent tooling."
 
 # model_instructions_file replaces built-in instructions instead of AGENTS.md,
 # so leave it unset unless you intentionally want a single override file.
 # model_instructions_file = "/absolute/path/to/instructions.md"
-
-# MCP servers
-# Keep the default project set lean. API-backed servers inherit credentials from
-# the launching environment or can be supplied by a user-level ~/.codex/config.toml.
-[mcp_servers.github]
-command = "npx"
-args = ["-y", "@modelcontextprotocol/server-github"]
-startup_timeout_sec = 30
-
-[mcp_servers.context7]
-command = "npx"
-# Canonical Codex section name is `context7`; the package itself remains
-# `@upstash/context7-mcp`.
-args = ["-y", "@upstash/context7-mcp@latest"]
-startup_timeout_sec = 30
-
-[mcp_servers.exa]
-url = "https://mcp.exa.ai/mcp"
-
-[mcp_servers.memory]
-command = "npx"
-args = ["-y", "@modelcontextprotocol/server-memory"]
-startup_timeout_sec = 30
-
-[mcp_servers.playwright]
-command = "npx"
-args = ["-y", "@playwright/mcp@latest", "--extension"]
-startup_timeout_sec = 30
-
-[mcp_servers.sequential-thinking]
-command = "npx"
-args = ["-y", "@modelcontextprotocol/server-sequential-thinking"]
-startup_timeout_sec = 30
-
-# Additional MCP servers (uncomment as needed):
-# [mcp_servers.supabase]
-# command = "npx"
-# args = ["-y", "supabase-mcp-server@latest", "--read-only"]
-#
-# [mcp_servers.firecrawl]
-# command = "npx"
-# args = ["-y", "firecrawl-mcp"]
-#
-# [mcp_servers.fal-ai]
-# command = "npx"
-# args = ["-y", "fal-ai-mcp-server"]
-#
-# [mcp_servers.cloudflare]
-# command = "npx"
-# args = ["-y", "@cloudflare/mcp-server-cloudflare"]
 
 [features]
 # Codex multi-agent collaboration is stable and on by default in current builds.
@@ -94,12 +37,10 @@ multi_agent = true
 [profiles.strict]
 approval_policy = "on-request"
 sandbox_mode = "read-only"
-web_search = "cached"
 
 [profiles.yolo]
 approval_policy = "never"
 sandbox_mode = "workspace-write"
-web_search = "live"
 
 [agents]
 # Multi-agent role limits and local role definitions.
@@ -115,10 +56,6 @@ config_file = "agents/explorer.toml"
 description = "PR reviewer focused on correctness, security, and missing tests."
 config_file = "agents/reviewer.toml"
 
-[agents.docs_researcher]
-description = "Documentation specialist that verifies APIs, framework behavior, and release notes."
-config_file = "agents/docs-researcher.toml"
-
 [agents.architect]
 description = "Software architecture specialist for system design, scalability, and technical decision-making. Use PROACTIVELY when planning new features, refactoring large systems, or making architectural decisions."
 config_file = "agents/architect.toml"
@@ -132,15 +69,11 @@ description = "Expert code review specialist. Proactively reviews code for quali
 config_file = "agents/code-reviewer.toml"
 
 [agents.database-reviewer]
-description = "PostgreSQL database specialist for query optimization, schema design, security, and performance. Use PROACTIVELY when writing SQL, creating migrations, designing schemas, or troubleshooting database performance. Incorporates Supabase best practices."
+description = "PostgreSQL database specialist for query optimization, schema design, security, and performance. Use PROACTIVELY when writing SQL, creating migrations, designing schemas, or troubleshooting database performance."
 config_file = "agents/database-reviewer.toml"
 
-[agents.docs-lookup]
-description = "When the user asks how to use a library, framework, or API or needs up-to-date code examples, use Context7 MCP to fetch current documentation and return answers with examples. Invoke for docs/API/setup questions."
-config_file = "agents/docs-lookup.toml"
-
 [agents.e2e-runner]
-description = "End-to-end testing specialist using Vercel Agent Browser (preferred) with Playwright fallback. Use PROACTIVELY for generating, maintaining, and running E2E tests. Manages test journeys, quarantines flaky tests, uploads artifacts (screenshots, videos, traces), and ensures critical user flows work."
+description = "End-to-end testing specialist for local Playwright workflows. Use PROACTIVELY for generating, maintaining, and running E2E tests against local applications and critical user flows."
 config_file = "agents/e2e-runner.toml"
 
 [agents.gan-evaluator]
@@ -162,14 +95,6 @@ config_file = "agents/go-build-resolver.toml"
 [agents.go-reviewer]
 description = "Expert Go code reviewer specializing in idiomatic Go, concurrency patterns, error handling, and performance. Use for all Go code changes. MUST BE USED for Go projects."
 config_file = "agents/go-reviewer.toml"
-
-[agents.harness-optimizer]
-description = "Analyze and improve the local agent harness configuration for reliability, cost, and throughput."
-config_file = "agents/harness-optimizer.toml"
-
-[agents.loop-operator]
-description = "Operate autonomous agent loops, monitor progress, and intervene safely when loops stall."
-config_file = "agents/loop-operator.toml"
 
 [agents.planner]
 description = "Expert planning specialist for complex features and refactoring. Use PROACTIVELY when users request feature implementation, architectural changes, or complex refactoring. Automatically activated for planning tasks."

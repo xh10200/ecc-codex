@@ -1,11 +1,11 @@
 ---
-description: "用于审计Claude技能和命令的质量。支持快速扫描（仅变更技能）和全面盘点模式，采用顺序子代理批量评估。"
+description: "用于审计 Codex 技能和本地工作流面的质量。支持快速扫描（仅变更技能）和全面盘点模式，采用顺序子代理批量评估。"
 origin: ECC
 ---
 
 # skill-stocktake
 
-斜杠命令 (`/skill-stocktake`)，用于使用质量检查清单 + AI 整体判断来审核所有 Claude 技能和命令。支持两种模式：用于最近更改技能的快速扫描，以及用于完整审查的全面盘点。
+用于审计 Codex 技能和本地工作流面的命令型工作流。它结合质量检查清单 + AI 整体判断来审核所有技能，支持最近变更的快速扫描和完整盘点两种模式。
 
 ## 范围
 
@@ -13,8 +13,8 @@ origin: ECC
 
 | 路径 | 描述 |
 |------|-------------|
-| `~/.claude/skills/` | 全局技能（所有项目） |
-| `{cwd}/.claude/skills/` | 项目级技能（如果目录存在） |
+| `~/.codex/skills/` | 全局技能（所有项目） |
+| `{cwd}/.agents/skills/` | 项目级技能（如果目录存在） |
 
 **在第 1 阶段开始时，该命令会明确列出找到并扫描了哪些路径。**
 
@@ -24,47 +24,47 @@ origin: ECC
 
 ```bash
 cd ~/path/to/my-project
-/skill-stocktake
+bash ~/.codex/skills/skill-stocktake/scripts/scan.sh
 ```
 
-如果项目没有 `.claude/skills/` 目录，则只评估全局技能和命令。
+如果项目没有 `.agents/skills/` 目录，则只评估全局技能和命令。
 
 ## 模式
 
 | 模式 | 触发条件 | 持续时间 |
 |------|---------|---------|
 | 快速扫描 | `results.json` 存在（默认） | 5–10 分钟 |
-| 全面盘点 | `results.json` 不存在，或 `/skill-stocktake full` | 20–30 分钟 |
+| 全面盘点 | `results.json` 不存在，或显式执行完整扫描 | 20–30 分钟 |
 
-**结果缓存：** `~/.claude/skills/skill-stocktake/results.json`
+**结果缓存：** `~/.codex/skills/skill-stocktake/results.json`
 
 ## 快速扫描流程
 
 仅重新评估自上次运行以来发生更改的技能（5–10 分钟）。
 
-1. 读取 `~/.claude/skills/skill-stocktake/results.json`
-2. 运行：`bash ~/.claude/skills/skill-stocktake/scripts/quick-diff.sh \   ~/.claude/skills/skill-stocktake/results.json`
-   （项目目录从 `$PWD/.claude/skills` 自动检测；仅在需要时显式传递）
+1. 读取 `~/.codex/skills/skill-stocktake/results.json`
+2. 运行：`bash ~/.codex/skills/skill-stocktake/scripts/quick-diff.sh \   ~/.codex/skills/skill-stocktake/results.json`
+   （项目目录从 `$PWD/.agents/skills` 自动检测；仅在需要时显式传递）
 3. 如果输出是 `[]`：报告“自上次运行以来无更改。”并停止
 4. 使用相同的第 2 阶段标准仅重新评估那些已更改的文件
 5. 沿用先前结果中未更改的技能
 6. 仅输出差异
-7. 运行：`bash ~/.claude/skills/skill-stocktake/scripts/save-results.sh \   ~/.claude/skills/skill-stocktake/results.json <<< "$EVAL_RESULTS"`
+7. 运行：`bash ~/.codex/skills/skill-stocktake/scripts/save-results.sh \   ~/.codex/skills/skill-stocktake/results.json <<< "$EVAL_RESULTS"`
 
 ## 全面盘点流程
 
 ### 第 1 阶段 — 清单
 
-运行：`bash ~/.claude/skills/skill-stocktake/scripts/scan.sh`
+运行：`bash ~/.codex/skills/skill-stocktake/scripts/scan.sh`
 
 脚本枚举技能文件，提取 frontmatter，并收集 UTC 修改时间。
-项目目录从 `$PWD/.claude/skills` 自动检测；仅在需要时显式传递。
+项目目录从 `$PWD/.agents/skills` 自动检测；仅在需要时显式传递。
 从脚本输出中呈现扫描摘要和清单表：
 
 ```
 扫描中：
-  ✓ ~/.claude/skills/         (17 个文件)
-  ✗ {cwd}/.claude/skills/    (未找到 — 仅限全局技能)
+  ✓ ~/.codex/skills/         (17 个文件)
+  ✗ {cwd}/.agents/skills/    (未找到 — 仅限全局技能)
 ```
 
 | 技能 | 7天使用 | 30天使用 | 描述 |
@@ -104,7 +104,7 @@ Agent(
 
 ```
 - [ ] 已检查与其他技能的内容重叠情况
-- [ ] 已检查与 MEMORY.md / CLAUDE.md 的重叠情况
+- [ ] 已检查与 MEMORY.md / AGENTS.md 的重叠情况
 - [ ] 已验证技术引用的时效性（如果存在工具名称 / CLI 参数 / API，请使用 WebSearch 进行验证）
 - [ ] 已考虑使用频率
 ```
@@ -123,7 +123,7 @@ Agent(
 
 * **可操作性**：代码示例、命令或步骤，让你可以立即行动
 * **范围契合度**：名称、触发器和内容保持一致；不过于宽泛或狭窄
-* **独特性**：价值不能被 MEMORY.md / CLAUDE.md / 其他技能取代
+* **独特性**：价值不能被 MEMORY.md / AGENTS.md / 其他技能取代
 * **时效性**：技术引用在当前环境中有效
 
 **原因质量要求** — `reason` 字段必须是自包含且能支持决策的：
@@ -161,7 +161,7 @@ Agent(
 
 ## 结果文件模式
 
-`~/.claude/skills/skill-stocktake/results.json`：
+`~/.codex/skills/skill-stocktake/results.json`：
 
 **`evaluated_at`**：必须设置为评估完成时的实际 UTC 时间。
 通过 Bash 获取：`date -u +%Y-%m-%dT%H:%M:%SZ`。切勿使用仅日期的近似值，如 `T00:00:00Z`。
@@ -177,7 +177,7 @@ Agent(
   },
   "skills": {
     "skill-name": {
-      "path": "~/.claude/skills/skill-name/SKILL.md",
+      "path": "~/.codex/skills/skill-name/SKILL.md",
       "verdict": "Keep",
       "reason": "Concrete, actionable, unique value for X workflow",
       "mtime": "2026-01-15T08:30:00Z"

@@ -2,17 +2,17 @@
 
 ## モデル選択戦略
 
-**Haiku 4.5**（Sonnet 機能の 90%、コスト 3 分の 1）:
+**GPT-5.4-mini**（軽量な日常タスク向けモデル）:
 - 頻繁に呼び出される軽量 agent
 - ペアプログラミングとコード生成
 - マルチ agent システムのワーカー agent
 
-**Sonnet 4.5**（最高のコーディングモデル）:
+**GPT-5.4**（標準の高品質コーディングモデル）:
 - メイン開発作業
 - マルチ agent ワークフローのオーケストレーション
 - 複雑なコーディングタスク
 
-**Opus 4.5**（最も深い推論）:
+**GPT-5.4 高推論**（最も深い推論設定）:
 - 複雑なアーキテクチャの意思決定
 - 最大限の推論要件
 - 調査と分析タスク
@@ -36,7 +36,7 @@
 
 拡張思考の制御:
 - **トグル**: Option+T（macOS）/ Alt+T（Windows/Linux）
-- **設定**: `~/.claude/settings.json` で `alwaysThinkingEnabled` を設定
+- **設定**: `~/.codex/config.toml` で `alwaysThinkingEnabled` を設定
 - **予算上限**: `export MAX_THINKING_TOKENS=10000`
 - **詳細モード**: Ctrl+O で思考出力を表示
 

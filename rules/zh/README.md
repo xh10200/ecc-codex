@@ -64,20 +64,20 @@ rules/
 
 ```bash
 # 创建目标目录
-mkdir -p ~/.claude/rules
+mkdir -p ~/.codex/rules
 
 # 安装通用规则（所有项目必需）
-cp -r rules/common ~/.claude/rules/common
+cp -r rules/common ~/.codex/rules/common
 
 # 安装中文翻译版本（可选）
-cp -r rules/zh ~/.claude/rules/zh
+cp -r rules/zh ~/.codex/rules/zh
 
 # 根据项目技术栈安装语言特定规则
-cp -r rules/typescript ~/.claude/rules/typescript
-cp -r rules/python ~/.claude/rules/python
-cp -r rules/golang ~/.claude/rules/golang
-cp -r rules/swift ~/.claude/rules/swift
-cp -r rules/php ~/.claude/rules/php
+cp -r rules/typescript ~/.codex/rules/typescript
+cp -r rules/python ~/.codex/rules/python
+cp -r rules/golang ~/.codex/rules/golang
+cp -r rules/swift ~/.codex/rules/swift
+cp -r rules/php ~/.codex/rules/php
 ```
 
 ## 规则 vs 技能

@@ -20,15 +20,12 @@
 - `tdd-workflow/` - テスト駆動開発ワークフロー
 - `verification-loop/` - 検証ループ
 
-### API・セキュリティ・ドキュメント
+### API・セキュリティ
 - `api-design/` - API 設計
-- `documentation-lookup/` - ドキュメント参照
 - `security-review/` - セキュリティレビュー
-- `mcp-server-patterns/` - MCP サーバーパターン
 
 ### データベース・ワークフロー補助
 - `postgres-patterns/` - PostgreSQL パターン
-- `continuous-learning-v2/` - 継続改善ワークフロー
 
 ## スキル構造
 

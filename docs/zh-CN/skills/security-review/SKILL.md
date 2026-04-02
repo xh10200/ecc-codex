@@ -126,10 +126,10 @@ await db.query(query)
 
 ```typescript
 // Safe - parameterized query
-const { data } = await supabase
-  .from('users')
-  .select('*')
-  .eq('email', userEmail)
+const result = await db.query(
+  'SELECT * FROM users WHERE email = $1',
+  [userEmail]
+)
 
 // Or with raw SQL
 await db.query(
@@ -143,7 +143,7 @@ await db.query(
 * \[ ] 所有数据库查询都使用参数化查询
 * \[ ] SQL 中没有字符串拼接
 * \[ ] 正确使用 ORM/查询构建器
-* \[ ] Supabase 查询已正确清理
+* \[ ] 查询构造器 / ORM 仍保持参数化
 
 ### 4. 身份验证与授权
 
@@ -179,7 +179,7 @@ export async function deleteUser(userId: string, requesterId: string) {
 }
 ```
 
-#### 行级安全（Supabase）
+#### 行级安全（PostgreSQL）
 
 ```sql
 -- Enable RLS on all tables
@@ -188,19 +188,19 @@ ALTER TABLE users ENABLE ROW LEVEL SECURITY;
 -- Users can only view their own data
 CREATE POLICY "Users view own data"
   ON users FOR SELECT
-  USING (auth.uid() = id);
+  USING (current_setting('app.current_user_id', true)::uuid = id);
 
 -- Users can only update their own data
 CREATE POLICY "Users update own data"
   ON users FOR UPDATE
-  USING (auth.uid() = id);
+  USING (current_setting('app.current_user_id', true)::uuid = id);
 ```
 
 #### 验证步骤
 
 * \[ ] 令牌存储在 httpOnly cookie 中（而非 localStorage）
 * \[ ] 执行敏感操作前进行授权检查
-* \[ ] Supabase 中启用了行级安全
+* \[ ] 多租户访问场景已启用行级安全
 * \[ ] 实现了基于角色的访问控制
 * \[ ] 会话管理安全
 
@@ -234,7 +234,7 @@ const securityHeaders = [
       style-src 'self' 'unsafe-inline';
       img-src 'self' data: https:;
       font-src 'self';
-      connect-src 'self' https://api.example.com;
+      connect-src 'self';
     `.replace(/\s{2,}/g, ' ').trim()
   }
 ]
@@ -510,17 +510,14 @@ test('enforces rate limits', async () => {
 * \[ ] **错误处理**：错误中不包含敏感数据
 * \[ ] **日志记录**：日志中不包含敏感数据
 * \[ ] **依赖项**：已更新，无漏洞
-* \[ ] **行级安全**：Supabase 中已启用
+* \[ ] **行级安全**：在需要的地方已启用
 * \[ ] **CORS**：已正确配置
 * \[ ] **文件上传**：已验证（大小、类型）
 * \[ ] **钱包签名**：已验证（如果涉及区块链）
 
 ## 资源
 
-* [OWASP Top 10](https://owasp.org/www-project-top-ten/)
-* [Next.js 安全](https://nextjs.org/docs/security)
-* [Supabase 安全](https://supabase.com/docs/guides/auth)
-* [Web 安全学院](https://portswigger.net/web-security)
+* 已审阅仓库内本地安全规则与已提交参考材料
 
 ***
 

@@ -2,7 +2,7 @@
 name: security-reviewer
 description: セキュリティ脆弱性検出および修復のスペシャリスト。ユーザー入力、認証、APIエンドポイント、機密データを扱うコードを書いた後に積極的に使用してください。シークレット、SSRF、インジェクション、安全でない暗号、OWASP Top 10の脆弱性を検出します。
 tools: ["Read", "Write", "Edit", "Bash", "Grep", "Glob"]
-model: opus
+model: gpt-5.4-mini
 ---
 
 # セキュリティレビューアー
@@ -154,7 +154,7 @@ Solana/ブロックチェーンセキュリティ:
 - [ ] ウォレット署名検証
 - [ ] 認証エンドポイントでレート制限
 
-データベースセキュリティ（Supabase）:
+データベースセキュリティ（PostgreSQL）:
 - [ ] すべてのテーブルで行レベルセキュリティ（RLS）が有効
 - [ ] クライアントからの直接データベースアクセスなし
 - [ ] パラメータ化されたクエリのみ
@@ -170,13 +170,13 @@ APIセキュリティ:
 - [ ] URLに機密データなし
 - [ ] 適切なHTTPメソッド（GETは安全、POST/PUT/DELETEはべき等）
 
-検索セキュリティ（Redis + OpenAI）:
-- [ ] Redis接続がTLSを使用
-- [ ] OpenAI APIキーがサーバー側のみ
+検索セキュリティ（ローカル検索 / キャッシュ）:
+- [ ] ローカル検索アダプタの入出力が検証されている
+- [ ] 機密な設定値がサーバー側に限定されている
 - [ ] 検索クエリがサニタイズされている
-- [ ] OpenAIにPIIを送信していない
+- [ ] 検索入力から PII が外部に送信されない
 - [ ] 検索エンドポイントでレート制限
-- [ ] Redis AUTHが有効
+- [ ] キャッシュ層の認可と分離が有効
 ```
 
 ## 検出すべき脆弱性パターン
@@ -190,9 +190,9 @@ const password = "admin123"
 const token = "ghp_xxxxxxxxxxxx"
 
 // PASS: 正しい: 環境変数
-const apiKey = process.env.OPENAI_API_KEY
-if (!apiKey) {
-  throw new Error('OPENAI_API_KEY not configured')
+const signingKey = process.env.APP_SIGNING_KEY
+if (!signingKey) {
+  throw new Error('APP_SIGNING_KEY not configured')
 }
 ```
 
@@ -204,10 +204,10 @@ const query = `SELECT * FROM users WHERE id = ${userId}`
 await db.query(query)
 
 // PASS: 正しい: パラメータ化されたクエリ
-const { data } = await supabase
-  .from('users')
-  .select('*')
-  .eq('id', userId)
+await db.query(
+  'SELECT * FROM users WHERE id = $1',
+  [userId]
+)
 ```
 
 ### 3. コマンドインジェクション（重要）
@@ -453,7 +453,7 @@ PRをレビューする際、インラインコメントを投稿:
 
 ---
 
-> セキュリティレビューはClaude Code security-reviewerエージェントによって実行されました
+> セキュリティレビューはCodex security-reviewerエージェントによって実行されました
 > 質問については、docs/SECURITY.mdを参照してください
 ```
 

@@ -74,7 +74,7 @@ cp -r rules/golang /path/to/your/runtime/rules/golang
    * `coding-style.md` —— 格式化工具、习惯用法、错误处理模式
    * `testing.md` —— 测试框架、覆盖率工具、测试组织
    * `patterns.md` —— 语言特定的设计模式
-   * `hooks.md` —— 用于格式化工具、代码检查器、类型检查器的 PostToolUse 钩子
+   * `hooks.md` —— 用于格式化、lint、类型检查等本地改后验证约定
    * `security.md` —— 密钥管理、安全扫描工具
 3. 每个文件应以以下内容开头：
    ```

@@ -75,7 +75,7 @@ cp -r rules/typescript /path/to/your/runtime/rules/typescript
    - `coding-style.md` — フォーマットツール、イディオム、エラーハンドリングパターン
    - `testing.md` — テストフレームワーク、カバレッジツール、テスト構成
    - `patterns.md` — 言語固有の設計パターン
-   - `hooks.md` — フォーマッタ、リンター、型チェッカー用の PostToolUse フック
+   - `hooks.md` — フォーマッタ、リンター、型チェッカー向けのローカル検証ガイダンス
    - `security.md` — シークレット管理、セキュリティスキャンツール
 3. 各ファイルは次の内容で始めてください:
    ```

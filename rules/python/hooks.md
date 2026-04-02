@@ -7,13 +7,16 @@ paths:
 
 > This file extends [common/hooks.md](../common/hooks.md) with Python specific content.
 
-## PostToolUse Hooks
+## Recommended Post-Edit Verification
 
-Configure in `~/.claude/settings.json`:
-
-- **black/ruff**: Auto-format `.py` files after edit
-- **mypy/pyright**: Run type checking after editing `.py` files
+- **black/ruff**: Format changed `.py` files immediately after editing
+- **mypy/pyright**: Run type checking for the touched module or package when the project uses it
 
 ## Warnings
 
-- Warn about `print()` statements in edited files (use `logging` module instead)
+- Warn about `print()` statements in edited files (prefer the `logging` module instead)
+
+## Before Finishing
+
+- Run the nearest relevant test target for the changed Python code
+- Prefer targeted pytest commands before broad suite runs

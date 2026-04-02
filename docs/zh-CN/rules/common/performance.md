@@ -2,19 +2,19 @@
 
 ## 模型选择策略
 
-**Haiku 4.5** (具备 Sonnet 90% 的能力，节省 3 倍成本):
+**GPT-5.4-mini**（更轻量的日常任务模型）:
 
 * 频繁调用的轻量级智能体
 * 结对编程和代码生成
 * 多智能体系统中的工作智能体
 
-**Sonnet 4.6** (最佳编码模型):
+**GPT-5.4**（默认的高质量编码模型）:
 
 * 主要的开发工作
 * 编排多智能体工作流
 * 复杂的编码任务
 
-**Opus 4.5** (最深的推理能力):
+**GPT-5.4 高推理**（最深的推理配置）:
 
 * 复杂的架构决策
 * 最高级别的推理需求
@@ -42,7 +42,7 @@
 通过以下方式控制扩展思考：
 
 * **切换**：Option+T (macOS) / Alt+T (Windows/Linux)
-* **配置**：在 `~/.claude/settings.json` 中设置 `alwaysThinkingEnabled`
+* **配置**：在 `~/.codex/config.toml` 中设置 `alwaysThinkingEnabled`
 * **预算上限**：`export MAX_THINKING_TOKENS=10000`
 * **详细模式**：Ctrl+O 查看思考输出
 

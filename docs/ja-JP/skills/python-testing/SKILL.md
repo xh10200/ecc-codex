@@ -320,7 +320,7 @@ def test_slow_operation():
 # Mark integration tests
 @pytest.mark.integration
 def test_api_integration():
-    response = requests.get("https://api.example.com")
+    response = requests.get("http://127.0.0.1:8080/health")
     assert response.status_code == 200
 
 # Mark unit tests

@@ -270,19 +270,14 @@ src/
 
 ## 模拟外部服务
 
-### Supabase 模拟
+### 数据库客户端模拟
 
 ```typescript
-jest.mock('@/lib/supabase', () => ({
-  supabase: {
-    from: jest.fn(() => ({
-      select: jest.fn(() => ({
-        eq: jest.fn(() => Promise.resolve({
-          data: [{ id: 1, name: 'Test Market' }],
-          error: null
-        }))
-      }))
-    }))
+jest.mock('@/lib/db', () => ({
+  db: {
+    query: jest.fn(() => Promise.resolve([
+      { id: 1, name: 'Test Market' }
+    ]))
   }
 }))
 ```
@@ -298,11 +293,11 @@ jest.mock('@/lib/redis', () => ({
 }))
 ```
 
-### OpenAI 模拟
+### 向量服务模拟
 
 ```typescript
-jest.mock('@/lib/openai', () => ({
-  generateEmbedding: jest.fn(() => Promise.resolve(
+jest.mock('@/lib/embeddings', () => ({
+  generateEmbeddingVector: jest.fn(() => Promise.resolve(
     new Array(1536).fill(0.1) // Mock 1536-dim embedding
   ))
 }))

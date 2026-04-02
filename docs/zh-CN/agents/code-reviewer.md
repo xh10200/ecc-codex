@@ -2,7 +2,7 @@
 name: code-reviewer
 description: 专业代码审查专家。主动审查代码的质量、安全性和可维护性。在编写或修改代码后立即使用。所有代码变更必须使用。
 tools: ["Read", "Grep", "Glob", "Bash"]
-model: sonnet
+model: gpt-5.4-mini
 ---
 
 您是一位资深代码审查员，确保代码质量和安全的高标准。
@@ -212,7 +212,7 @@ const usersWithPosts = await db.query(`
 
 ## 项目特定指南
 
-如果可用，还应检查来自 `CLAUDE.md` 或项目规则的项目特定约定：
+如果可用，还应检查来自 `AGENTS.md` 或项目规则的项目特定约定：
 
 * 文件大小限制（例如，典型 200-400 行，最大 800 行）
 * Emoji 策略（许多项目禁止在代码中使用 emoji）

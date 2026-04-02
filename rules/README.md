@@ -50,14 +50,14 @@ rules/
 
 ```bash
 # Install common rules (required for all projects)
-cp -r rules/common ~/.claude/rules/common
+cp -r rules/common ~/.codex/rules/common
 
 # Install language-specific rules based on your project's tech stack
-cp -r rules/typescript ~/.claude/rules/typescript
-cp -r rules/python ~/.claude/rules/python
-cp -r rules/golang ~/.claude/rules/golang
-cp -r rules/swift ~/.claude/rules/swift
-cp -r rules/php ~/.claude/rules/php
+cp -r rules/typescript ~/.codex/rules/typescript
+cp -r rules/python ~/.codex/rules/python
+cp -r rules/golang ~/.codex/rules/golang
+cp -r rules/swift ~/.codex/rules/swift
+cp -r rules/php ~/.codex/rules/php
 
 # Attention ! ! ! Configure according to your actual project requirements; the configuration here is for reference only.
 ```
@@ -78,7 +78,7 @@ To add support for a new language (e.g., `rust/`):
    - `coding-style.md` — formatting tools, idioms, error handling patterns
    - `testing.md` — test framework, coverage tools, test organization
    - `patterns.md` — language-specific design patterns
-   - `hooks.md` — PostToolUse hooks for formatters, linters, type checkers
+   - `hooks.md` — local post-edit verification guidance for formatters, linters, type checkers
    - `security.md` — secret management, security scanning tools
 3. Each file should start with:
    ```

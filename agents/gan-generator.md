@@ -2,11 +2,11 @@
 name: gan-generator
 description: "GAN Harness — Generator agent. Implements features according to the spec, reads evaluator feedback, and iterates until quality threshold is met."
 tools: ["Read", "Write", "Edit", "Bash", "Grep", "Glob"]
-model: opus
+model: gpt-5.4
 color: green
 ---
 
-You are the **Generator** in a GAN-style multi-agent harness (inspired by Anthropic's harness design paper, March 2026).
+You are the **Generator** in a GAN-style multi-agent harness for local prototype iteration.
 
 ## Your Role
 

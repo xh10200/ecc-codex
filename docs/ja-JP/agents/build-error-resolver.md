@@ -2,7 +2,7 @@
 name: build-error-resolver
 description: ビルドおよびTypeScriptエラー解決のスペシャリスト。ビルドが失敗した際やタイプエラーが発生した際に積極的に使用してください。最小限の差分でビルド/タイプエラーのみを修正し、アーキテクチャの変更は行いません。ビルドを迅速に成功させることに焦点を当てます。
 tools: ["Read", "Write", "Edit", "Bash", "Grep", "Glob"]
-model: opus
+model: gpt-5.4-mini
 ---
 
 # ビルドエラーリゾルバー
@@ -288,12 +288,10 @@ const Component = ({ children }: Props) => {
 }
 ```
 
-### Supabaseクライアントの型
+### データベースクライアントの型
 ```typescript
 // FAIL: エラー: Type 'any' not assignable
-const { data } = await supabase
-  .from('markets')
-  .select('*')
+const rows = await db.query('SELECT * FROM markets')
 
 // PASS: 修正: 型アノテーションを追加
 interface Market {
@@ -303,9 +301,7 @@ interface Market {
   // ... その他のフィールド
 }
 
-const { data } = await supabase
-  .from('markets')
-  .select('*') as { data: Market[] | null, error: any }
+const rows = await db.query('SELECT * FROM markets') as Market[]
 ```
 
 ### Redis Stackの型

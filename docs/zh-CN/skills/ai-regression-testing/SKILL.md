@@ -10,7 +10,7 @@ origin: ECC
 
 ## 何时激活
 
-* AI 代理（Claude Code、Cursor、Codex）已修改 API 路由或后端逻辑
+* AI 代理（Codex、Cursor、Codex）已修改 API 路由或后端逻辑
 * 发现并修复了一个 bug——需要防止重新引入
 * 项目具有沙盒/模拟模式，可用于无需数据库的测试
 * 在代码更改后运行 `/bug-check` 或类似的审查命令
@@ -197,7 +197,7 @@ describe("GET /api/user/messages (conversation list)", () => {
 ### 自定义命令定义
 
 ```markdown
-<!-- .claude/commands/bug-check.md -->
+<!-- .codex/commands/bug-check.md -->
 # Bug 检查
 
 ## 步骤 1：自动化测试（强制，不可跳过）
@@ -279,23 +279,21 @@ it("sandbox and production return same fields", async () => {
 
 ### 模式 2：SELECT 子句遗漏
 
-**频率**：在使用 Supabase/Prisma 添加新列时常见
+**频率**：在数据库客户端或 ORM 新增列时很常见
 
 ```typescript
 // FAIL: New column added to response but not to SELECT
-const { data } = await supabase
-  .from("users")
-  .select("id, email, name")  // notification_settings not here
-  .single();
+const data = await db.users.findFirst({
+  select: { id: true, email: true, name: true }
+}) // notification_settings not here
 
 return { data: { ...data, notification_settings: data.notification_settings } };
 // → notification_settings is always undefined
 
 // PASS: Use SELECT * or explicitly include new columns
-const { data } = await supabase
-  .from("users")
-  .select("*")
-  .single();
+const data = await db.users.findFirst({
+  select: { id: true, email: true, name: true, notification_settings: true }
+});
 ```
 
 ### 模式 3：错误状态泄漏

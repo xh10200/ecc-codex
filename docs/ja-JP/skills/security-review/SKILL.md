@@ -117,10 +117,10 @@ await db.query(query)
 #### PASS: 常にパラメータ化されたクエリを使用
 ```typescript
 // 安全 - パラメータ化されたクエリ
-const { data } = await supabase
-  .from('users')
-  .select('*')
-  .eq('email', userEmail)
+const result = await db.query(
+  'SELECT * FROM users WHERE email = $1',
+  [userEmail]
+)
 
 // または生のSQLで
 await db.query(
@@ -133,7 +133,7 @@ await db.query(
 - [ ] すべてのデータベースクエリがパラメータ化されたクエリを使用
 - [ ] SQLでの文字列連結なし
 - [ ] ORM/クエリビルダーを正しく使用
-- [ ] Supabaseクエリが適切にサニタイズされている
+- [ ] クエリビルダ / ORM の利用が常にパラメータ化されている
 
 ### 4. 認証と認可
 
@@ -167,7 +167,7 @@ export async function deleteUser(userId: string, requesterId: string) {
 }
 ```
 
-#### 行レベルセキュリティ (Supabase)
+#### 行レベルセキュリティ (PostgreSQL)
 ```sql
 -- すべてのテーブルでRLSを有効化
 ALTER TABLE users ENABLE ROW LEVEL SECURITY;
@@ -175,18 +175,18 @@ ALTER TABLE users ENABLE ROW LEVEL SECURITY;
 -- ユーザーは自分のデータのみを表示できる
 CREATE POLICY "Users view own data"
   ON users FOR SELECT
-  USING (auth.uid() = id);
+  USING (current_setting('app.current_user_id', true)::uuid = id);
 
 -- ユーザーは自分のデータのみを更新できる
 CREATE POLICY "Users update own data"
   ON users FOR UPDATE
-  USING (auth.uid() = id);
+  USING (current_setting('app.current_user_id', true)::uuid = id);
 ```
 
 #### 検証ステップ
 - [ ] トークンはhttpOnly Cookieに保存（localStorageではなく）
 - [ ] 機密操作前の認可チェック
-- [ ] SupabaseでRow Level Securityを有効化
+- [ ] マルチテナントなアクセス経路で Row Level Security を有効化
 - [ ] ロールベースのアクセス制御を実装
 - [ ] セッション管理が安全
 
@@ -218,7 +218,7 @@ const securityHeaders = [
       style-src 'self' 'unsafe-inline';
       img-src 'self' data: https:;
       font-src 'self';
-      connect-src 'self' https://api.example.com;
+      connect-src 'self';
     `.replace(/\s{2,}/g, ' ').trim()
   }
 ]
@@ -477,17 +477,14 @@ test('enforces rate limits', async () => {
 - [ ] **エラー処理**：エラーに機密データなし
 - [ ] **ロギング**：ログに機密データなし
 - [ ] **依存関係**：最新、脆弱性なし
-- [ ] **Row Level Security**：Supabaseで有効化
+- [ ] **Row Level Security**：必要な箇所で有効化
 - [ ] **CORS**：適切に設定
 - [ ] **ファイルアップロード**：検証済み（サイズ、タイプ）
 - [ ] **ウォレット署名**：検証済み（ブロックチェーンの場合）
 
 ## リソース
 
-- [OWASP Top 10](https://owasp.org/www-project-top-ten/)
-- [Next.js Security](https://nextjs.org/docs/security)
-- [Supabase Security](https://supabase.com/docs/guides/auth)
-- [Web Security Academy](https://portswigger.net/web-security)
+- ローカルのプロジェクト規約とチェックイン済みの参照資料を確認済み
 
 ---
 

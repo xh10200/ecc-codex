@@ -1,6 +1,6 @@
 ---
 name: postgres-patterns
-description: 用于查询优化、模式设计、索引和安全性的PostgreSQL数据库模式。基于Supabase最佳实践。
+description: 用于本地优先应用中查询优化、模式设计、索引和安全性的 PostgreSQL 数据库模式。
 origin: ECC
 ---
 
@@ -151,4 +151,4 @@ SELECT pg_reload_conf();
 
 ***
 
-*基于 Supabase 代理技能（致谢：Supabase 团队）（MIT 许可证）*
+*重点关注本地 PostgreSQL 运维、迁移和查询分析。*

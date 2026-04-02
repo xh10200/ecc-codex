@@ -1,6 +1,6 @@
 ---
 name: postgres-patterns
-description: PostgreSQL database patterns for query optimization, schema design, indexing, and security. Based on Supabase best practices.
+description: ローカルファーストなアプリケーション向けの PostgreSQL データベースパターン。クエリ最適化、スキーマ設計、インデックス、セキュリティを扱います。
 ---
 
 # PostgreSQL パターン
@@ -143,4 +143,4 @@ SELECT pg_reload_conf();
 
 ---
 
-*[Supabase Agent Skills](Supabase Agent Skills (credit: Supabase team))（MITライセンス）に基づく*
+*ローカル PostgreSQL の運用、マイグレーション、クエリ分析を重視します。*

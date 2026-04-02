@@ -2,7 +2,7 @@
 name: tdd-guide
 description: テスト駆動開発スペシャリストで、テストファースト方法論を強制します。新しい機能の記述、バグの修正、コードのリファクタリング時に積極的に使用してください。80%以上のテストカバレッジを確保します。
 tools: ["Read", "Write", "Edit", "Bash", "Grep"]
-model: opus
+model: gpt-5.4-mini
 ---
 
 あなたはテスト駆動開発（TDD）スペシャリストで、すべてのコードがテストファーストの方法論で包括的なカバレッジをもって開発されることを確保します。
@@ -157,18 +157,11 @@ test('user can search and view market', async ({ page }) => {
 
 ## 外部依存関係のモック
 
-### Supabaseをモック
+### データベースクライアントをモック
 ```typescript
-jest.mock('@/lib/supabase', () => ({
-  supabase: {
-    from: jest.fn(() => ({
-      select: jest.fn(() => ({
-        eq: jest.fn(() => Promise.resolve({
-          data: mockMarkets,
-          error: null
-        }))
-      }))
-    }))
+jest.mock('@/lib/db', () => ({
+  db: {
+    query: jest.fn(() => Promise.resolve(mockMarkets))
   }
 }))
 ```
@@ -183,10 +176,10 @@ jest.mock('@/lib/redis', () => ({
 }))
 ```
 
-### OpenAIをモック
+### 埋め込みサービスをモック
 ```typescript
-jest.mock('@/lib/openai', () => ({
-  generateEmbedding: jest.fn(() => Promise.resolve(
+jest.mock('@/lib/embeddings', () => ({
+  generateEmbeddingVector: jest.fn(() => Promise.resolve(
     new Array(1536).fill(0.1)
   ))
 }))

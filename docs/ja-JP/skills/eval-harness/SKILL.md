@@ -1,12 +1,12 @@
 ---
 name: eval-harness
-description: Claude Codeセッションの正式な評価フレームワークで、評価駆動開発（EDD）の原則を実装します
+description: Codexセッションの正式な評価フレームワークで、評価駆動開発（EDD）の原則を実装します
 tools: Read, Write, Edit, Bash, Grep, Glob
 ---
 
 # Eval Harnessスキル
 
-Claude Codeセッションの正式な評価フレームワークで、評価駆動開発（EDD）の原則を実装します。
+Codexセッションの正式な評価フレームワークで、評価駆動開発（EDD）の原則を実装します。
 
 ## 哲学
 
@@ -19,10 +19,10 @@ Claude Codeセッションの正式な評価フレームワークで、評価駆
 ## 評価タイプ
 
 ### 能力評価
-Claudeが以前できなかったことができるようになったかをテスト：
+Codexが以前できなかったことができるようになったかをテスト：
 ```markdown
 [CAPABILITY EVAL: feature-name]
-タスク: Claudeが達成すべきことの説明
+タスク: Codexが達成すべきことの説明
 成功基準:
   - [ ] 基準1
   - [ ] 基準2
@@ -58,7 +58,7 @@ npm run build && echo "PASS" || echo "FAIL"
 ```
 
 ### 2. モデルベース評価者
-Claudeを使用して自由形式の出力を評価：
+Codexまたは別の評価モデルを使って自由形式の出力を評価：
 ```markdown
 [MODEL GRADER PROMPT]
 次のコード変更を評価してください：
@@ -156,28 +156,19 @@ npm test -- --testPathPattern="existing"
 ## 統合パターン
 
 ### 実装前
-```
-/eval define feature-name
-```
-`.claude/evals/feature-name.md`に評価定義ファイルを作成
+`.codex/evals/feature-name.md`に評価定義ファイルを作成し、能力評価・回帰評価・成功メトリクスを書きます。
 
 ### 実装中
-```
-/eval check feature-name
-```
-現在の評価を実行してステータスを報告
+評価定義に記録したビルド・テスト・シナリオチェックを再実行し、ステータスを更新します。
 
 ### 実装後
-```
-/eval report feature-name
-```
-完全な評価レポートを生成
+`.codex/evals/feature-name.log` を更新し、完了報告に最新結果を要約します。
 
 ## 評価の保存
 
 プロジェクト内に評価を保存：
 ```
-.claude/
+.codex/
   evals/
     feature-xyz.md      # 評価定義
     feature-xyz.log     # 評価実行履歴
@@ -216,7 +207,7 @@ npm test -- --testPathPattern="existing"
 [コードを書く]
 
 ### フェーズ 3: 評価
-Run: /eval check add-authentication
+Run the checks recorded in `.codex/evals/add-authentication.md`
 
 ### フェーズ 4: レポート
 評価レポート: add-authentication

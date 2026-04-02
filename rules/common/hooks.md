@@ -1,30 +1,35 @@
-# Hooks System
+# Local Automation And Verification
 
-## Hook Types
+These rules describe recommended local automation points for Codex workflows.
+They are guidance, not executable hook registrations. In this repository,
+automation should live in repo-local scripts, task runners, editor actions,
+git hooks, CI jobs, or explicit verification commands run by the agent.
 
-- **PreToolUse**: Before tool execution (validation, parameter modification)
-- **PostToolUse**: After tool execution (auto-format, checks)
-- **Stop**: When session ends (final verification)
+## Recommended Phases
 
-## Auto-Accept Permissions
+- **Before editing**: Validate scope, locate the owning package or project, and choose the smallest safe verification command.
+- **After editing**: Run formatting, linting, type checks, or package-level verification for the files you changed.
+- **Before finishing**: Run the narrowest final check that matches the risk of the change.
 
-Use with caution:
-- Enable for trusted, well-defined plans
-- Disable for exploratory work
-- Never use dangerously-skip-permissions flag
-- Configure `allowedTools` in `~/.claude.json` instead
+## Permissions And Automation
 
-## TodoWrite Best Practices
+Use automation with caution:
+- Prefer repo-local commands over machine-global configuration
+- Prefer narrowly scoped checks over broad, expensive runs
+- Do not bypass Codex approval and sandbox controls with unsafe global automation
+- If a check is important and repeatable, encode it in the repo with scripts, `Makefile`, or package manager commands
 
-Use TodoWrite tool to:
-- Track progress on multi-step tasks
-- Verify understanding of instructions
-- Enable real-time steering
-- Show granular implementation steps
+## Planning Best Practices
 
-Todo list reveals:
-- Out of order steps
-- Missing items
-- Extra unnecessary items
-- Wrong granularity
-- Misinterpreted requirements
+For multi-step work:
+- Keep a short task plan
+- Verify the goal before broad edits
+- Surface risky or blocking checks early
+- Record what was actually verified before finishing
+
+A good plan helps reveal:
+- Steps in the wrong order
+- Missing verification
+- Unnecessary work
+- Overly broad edits
+- Misread requirements

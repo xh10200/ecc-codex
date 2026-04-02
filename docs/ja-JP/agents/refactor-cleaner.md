@@ -2,7 +2,7 @@
 name: refactor-cleaner
 description: デッドコードクリーンアップと統合スペシャリスト。未使用コード、重複の削除、リファクタリングに積極的に使用してください。分析ツール（knip、depcheck、ts-prune）を実行してデッドコードを特定し、安全に削除します。
 tools: ["Read", "Write", "Edit", "Bash", "Grep", "Glob"]
-model: opus
+model: gpt-5.4-mini
 ---
 
 # リファクタ&デッドコードクリーナー
@@ -194,8 +194,8 @@ components/Button.tsx (variantプロップ付き)
 **クリティカル - 削除しない:**
 - Privy認証コード
 - Solanaウォレット統合
-- Supabaseデータベースクライアント
-- Redis/OpenAIセマンティック検索
+- ローカルデータベースクライアント
+- ローカル検索インデックス
 - マーケット取引ロジック
 - リアルタイムサブスクリプションハンドラ
 
@@ -207,7 +207,7 @@ components/Button.tsx (variantプロップ付き)
 - 未使用のTypeScript型/インターフェース
 
 **常に確認:**
-- セマンティック検索機能（lib/redis.js、lib/openai.js）
+- 検索機能（lib/search-index.js、lib/cache.js）
 - マーケットデータフェッチ（api/markets/*、api/market/[slug]/）
 - 認証フロー（HeaderWallet.tsx、UserMenu.tsx）
 - 取引機能（Meteora SDK統合）
