@@ -16,6 +16,7 @@
 - 用 `agents/`、`rules/`、`skills/` 维护核心规范资产
 - 用 `docs/` 维护这些核心资产的说明和多语言文档
 - 用 `.codex/`、`.agents/` 作为更贴近 Codex 的本地加载和映射层
+- 用 `docs/zh-CN/`、`docs/ja-JP/` 维护多语言说明，包括 agents、skills 和 rules
 
 ## 快速理解
 
@@ -184,3 +185,18 @@ Codex 运行层额外保留了两个轻量角色：
 2. 再根据任务类型选择对应的 `agent`、`skill` 和语言 `rules`
 3. 需要补充说明或翻译时，再看 `docs/`
 4. 需要了解 Codex 本地运行时行为时，再看 `.codex/` 和 `.agents/`
+
+## 子代理使用
+
+当前实际生效、可稳定依赖的子代理入口是：
+
+- `/agent <name> <task>`
+
+例如：
+- `/agent planner 添加用户认证`
+- `/agent architect 分析当前架构`
+- `/agent code-reviewer review 当前改动`
+- `/agent security-reviewer 检查登录接口`
+
+如果需要查看可用子代理名称，建议先输入：
+- `/agent`

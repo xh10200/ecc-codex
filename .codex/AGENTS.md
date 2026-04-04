@@ -70,6 +70,7 @@ Core role configs in this repo include:
 - `AGENTS.md` is the repository entry point.
 - Skills are surfaced from `.agents/skills/`.
 - Multi-agent roles are defined in `.codex/config.toml` and `.codex/agents/*.toml`.
+- The stable sub-agent entry point is `/agent <name> <task>`.
 - External integrations are intentionally excluded from the project baseline.
 - Safety is enforced through instructions, sandboxing, approval policy, and explicit verification steps.
 
